@@ -79,18 +79,19 @@ module FirstClickFree
         # (new first click free will be set)
         reset_first_click_free! if permitted_domain?
 
-        if session[:first_click] && session[:first_click].include?(checksum(url_for))
+        clicks = Clicks.new session
+        if clicks.first_click.include?(checksum(url_for))
           # already visited, can visit again
-        elsif session[:first_click] && session[:first_click].length < FirstClickFree.free_clicks
+        elsif clicks.first_click.length < FirstClickFree.free_clicks
           # new page but within free click limit
-          session[:first_click] << checksum(url_for)
-        elsif session[:first_click] && session[:first_click].length == FirstClickFree.free_clicks
+          clicks.first_click << checksum(url_for)
+        elsif clicks.first_click.length == FirstClickFree.free_clicks
           raise FirstClickFree::Exceptions::SubsequentAccessException
         else
           # first click!
-          session[:first_click] = [ checksum(url_for) ]
+          clicks.first_click = [ checksum(url_for) ]
         end
-        request.env["first_click_free_count"] = session[:first_click].length
+        request.env["first_click_free_count"] = clicks.first_click.length
         return true
       rescue FirstClickFree::Exceptions::SubsequentAccessException => e
         @first_click_free = false
@@ -103,7 +104,7 @@ module FirstClickFree
       #
       # Returns the value set in the first click session (nil)
       def reset_first_click_free!
-        session.delete(:first_click)
+        session.delete(:first_click_free)
       end
 
       # Private: Create a checksum string.
