@@ -75,6 +75,12 @@ module FirstClickFree
         # Always allow requests to particular paths
         return true if permitted_path?
 
+        # first click free if the domain is permitted 3 visits
+        unless permitted_domain?
+          @first_click_free = false
+          return true
+        end
+
         # Reset first click free if the domain is permitted
         # (new first click free will be set)
         reset_first_click_free! if permitted_domain?
