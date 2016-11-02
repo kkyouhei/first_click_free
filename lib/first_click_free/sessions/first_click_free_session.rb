@@ -13,17 +13,17 @@ class FirstClickFreeSession
   end
 
   def clicks=(click)
-    add -> { @clicks = click }
+    add click,  -> c { @clicks = c }
   end
 
   def <<(click)
-    add -> { @clicks << click }
+    add click, -> c { @clicks << c }
   end
 
   private
-    def add operation
+    def add click, operation
       key = first_click_free_of_session_key
-      operation.call
+      operation.call click
       @session["first_click_free"][key] = {"first_click" => @clicks}
     end
 
