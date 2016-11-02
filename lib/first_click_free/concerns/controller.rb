@@ -81,10 +81,6 @@ module FirstClickFree
           return true
         end
 
-        # Reset first click free if the domain is permitted
-        # (new first click free will be set)
-        reset_first_click_free! if permitted_domain?
-
         fcf_session = FirstClickFreeSession.new session
         if fcf_session.clicks.include?(checksum(url_for))
           # already visited, can visit again
