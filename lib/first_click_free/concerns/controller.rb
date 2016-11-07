@@ -67,7 +67,7 @@ module FirstClickFree
         @first_click_free = true
 
         # Always allow requests from Googlebot
-        return true if googlebot?
+        return true if googlebot? FirstClickFree.crawler_bot_strict_if
 
         # Always allow requests from authenticated users
         return true if user_for_first_click_free
