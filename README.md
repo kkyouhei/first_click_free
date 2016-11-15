@@ -40,7 +40,7 @@ Optional use
 2. By default users will get just 1 free click, however by setting `FirstClickFree.free_clicks` in an initializer you can allow n free clicks to content.
 3. A count of users' free clicks are available in request.env["first_click_free_count"].
 
-4. throw excaption option. `FirstClickFree.raise_excaption` in an initializer.
+4. throw exception option. `FirstClickFree.raise_exception` in an initializer.
 
 #### Registered Users
 

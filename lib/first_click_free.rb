@@ -10,7 +10,7 @@ module FirstClickFree
 
     require 'yaml'
 
-    attr_accessor :test_mode, :permitted_paths, :free_clicks, :raise_excaption, :crawler_bot_strict_if
+    attr_accessor :test_mode, :permitted_paths, :free_clicks, :raise_exception, :crawler_bot_strict_if
 
     def root
       File.expand_path(File.join(File.dirname(__FILE__), '..'))
@@ -28,8 +28,8 @@ module FirstClickFree
       @free_clicks || 1 # default is 1 click free
     end
 
-    def raise_excaption?
-      @raise_excaption || false # default is false
+    def raise_exception?
+      @raise_exception || false # default is false
     end
 
     def test_mode

@@ -97,7 +97,7 @@ module FirstClickFree
         return true
       rescue FirstClickFree::Exceptions::SubsequentAccessException => e
         @first_click_free = false
-        raise FirstClickFree::Exceptions::SubsequentAccessException if FirstClickFree.raise_excaption?
+        raise FirstClickFree::Exceptions::SubsequentAccessException if FirstClickFree.raise_exception?
       end
 
       private
