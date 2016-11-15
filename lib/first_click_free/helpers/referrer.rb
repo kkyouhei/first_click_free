@@ -18,7 +18,8 @@ module FirstClickFree
       def permitted_domain?
         return true if FirstClickFree.test_mode && params.key?(:google_referrer)
         request.try(:referrer) && FirstClickFree.permitted_domains.any? do |domain|
-          URI.parse(request.referrer).hostname =~ /#{domain}\Z/
+          encoded_url = URI.encode(request.referrer)
+          URI.parse(encoded_url).hostname =~ /#{domain}\Z/
         end
       end
     end
